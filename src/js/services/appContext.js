@@ -12,7 +12,7 @@ const injectContext = PassedComponent => {
 		const [state, setState] = useState(
 			getState({
 				getStore: () => state.store,
-				getActions: () => state.actions,
+				getActions: () => state.actions, // en flux.js
 				setStore: updatedStore =>
 					setState({
 						store: Object.assign(state.store, updatedStore),
@@ -22,6 +22,14 @@ const injectContext = PassedComponent => {
 		);
 
 		useEffect(() => {
+			// * ¡EDITA ESTO!
+			// * Esta función es el equivalente a "window.onLoad", solo se ejecuta una vez durante toda la vida útil de la aplicación
+			// * debe hacer sus solicitudes de ajax o buscar solicitudes de API aquí. No use setState() para guardar datos en el
+			// * almacenar, en lugar de usar acciones, como esta:
+			// *
+			// * state.actions.loadSomeData(); <---- llamando a esta función desde las acciones flux.js
+			// *
+			// **/
 			/**
 			 * EDIT THIS!
 			 * This function is the equivalent to "window.onLoad", it only runs once on the entire application lifetime
@@ -33,9 +41,9 @@ const injectContext = PassedComponent => {
 			 **/
 		}, []);
 
-		// The initial value for the context is not null anymore, but the current state of this component,
-		// the context will now have a getStore, getActions and setStore functions available, because they were declared
-		// on the state of this component
+		// El valor inicial para el contexto ya no es nulo, sino el estado (state) actual de este componente ,
+ 		// el contexto ahora tendrá disponibles las funciones getStore, getActions y setStore, 
+		// porque fueron declaradas sobre el estado de este componente const [state, setState] = ....
 		return (
 			<Context.Provider value={state}>
 				<PassedComponent {...props} />

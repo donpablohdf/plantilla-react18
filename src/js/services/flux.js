@@ -3,34 +3,33 @@ const getState = ({ getStore, getActions, setStore }) => {
 		store: {
 			demo: [
 				{
-					title: "FIRST",
+					title: "PRIMER ELEMENTO en flux.js => store.demo",
 					background: "white",
 					initial: "white"
 				},
 				{
-					title: "SECOND",
+					title: "SEGUNDO ELEMENTO en flux.js => store.demo",
 					background: "white",
 					initial: "white"
 				}
 			]
 		},
 		actions: {
-			// Use getActions to call a function within a fuction
+			// Use getActions para llamar a una función dentro de una función
 			exampleFunction: () => {
 				getActions().changeColor(0, "green");
 			},
 			loadSomeData: () => {
-				/**
+				/** para meter los datos de la API
 					fetch().then().then(data => setStore({ "foo": data.bar }))
 				*/
 			},
-			changeColor: (index, color) => {
+			changeColor: (index, color) => { //ejemplo de función
 				//get the store
-				const store = getStore();
+				const datosStore = getStore();
 
-				//we have to loop the entire demo array to look for the respective index
-				//and change its color
-				const demo = store.demo.map((elm, i) => {
+				// map a store.demo para buscar el índice respectivo y cambiar su color
+				const demo = datosStore.demo.map((elm, i) => {
 					if (i === index) elm.background = color;
 					return elm;
 				});
